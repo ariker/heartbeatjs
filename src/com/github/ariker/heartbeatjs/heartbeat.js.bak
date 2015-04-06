@@ -1,0 +1,164 @@
+//TODO deal with documentation @requires
+/**
+ * @namespace heartbeatjs
+ * @author Andrew Riker (ariker)
+ * @requires CallbackJS~Callbacks
+ * @memberof com.github.ariker
+ * @license The MIT License (MIT)
+ */
+define(['callback'], function(CallbackJS) {
+	
+	return {
+		
+		/**
+		 * Collects callback functions and executes them at a specified interval
+		 * @constructor
+		 * @alias Heartbeat
+		 * @memberof com.github.ariker.heartbeatjs
+		 * @inner
+		 */
+		Heartbeat: function() {
+
+			/**
+			 * Starts the heartbeat
+			 * @param {number=} pulse - Callback execution interval (milliseconds)
+			 * @public
+			 */
+			this.start = function(pulse) {
+				this.state = 'started';
+				this.pulse = (typeof pulse === 'undefined') ? this.pulse : pulse;
+				this.preventBeat = false;
+				this._beat();
+			};
+			
+			/**
+			 * Executes each callback and sets the time for the next beat
+			 * @private
+			 */
+			this._beat = function() {
+				if(this.preventBeat) {return;}
+				if(this.beatSkips > 0) {this.beatSkips--;}
+				else {this.callbacks.execute();}
+				
+				var obj = this;
+				this.timeout = window.setTimeout(
+					function() {obj._beat();},
+					obj.pulse
+				);
+			};
+			
+			/**
+			 * Skip a number of beats
+			 * @param {number=} [beats=1] - Number of beats to skip
+			 * @param {boolean=} [add=true] - Whether to add the skips instead of replacing 
+			 * @public
+			 */
+			this.skip = function(beats, add) {
+				beats = (typeof beats === 'undefined') ? 1 : beats;
+				add = (typeof add === 'undefined') ? true : add;
+				
+				if(add) {this.beatSkips += beats;}
+				else {this.beatSkips = beats;}
+				this.state = 'delayed';
+			};
+			
+			/**
+			 * Returns the number of beats to skip
+			 * @returns {number}
+			 * @public
+			 */
+			this.getBeatSkips = function() {
+				return this.beatSkips;
+			};
+			
+			/**
+			 * Stops callback execution
+			 * @public
+			 */
+			this.stop = function() {
+				this.state = 'stopped';
+				window.clearTimeout(this.timeout);
+			};
+			
+			/**
+			 * Returns the pulse interval
+			 * @returns {Number}
+			 * @public
+			 */
+		    this.getPulse = function() {
+				return this.pulse;
+			};
+			
+			/**
+			 * Sets the pulse interval
+			 * @param {number} pulse - Callback execution interval (milliseconds)
+			 * @public
+			 */
+			this.setPulse = function(pulse) {
+				this.pulse = pulse;
+			};
+			
+			/**
+			 * Returns the callback queue
+			 * @returns {Callbacks}
+			 * @public
+			 */
+			this.getCallbacks = function() {
+				return this.callbacks;
+			};
+			
+			/**
+			 * Returns the display name of the class
+			 * @returns {String} "stopped", "started", "delayed"
+			 * @public
+			 */
+			this.getClassDisplayName = function() {
+				return 'Heartbeat';
+			};
+			
+			/**
+			 * Returns the state of the heartbeat
+			 * @returns {String}
+			 * @public
+			 */
+			this.getState = function() {
+				return this.state;
+			};
+			
+			/**
+			 * Window timeout function
+			 * @type {function}
+			 * @private
+			 */
+			this.timeout = null;
+			
+			/**
+			 * Callback execution interval (milliseconds)
+			 * @type {number}
+			 * @private
+			 */
+			this.pulse = null;
+			
+			/**
+			 * Number of beats to skip
+			 * @type {number}
+			 * @private
+			 */
+			this.beatSkips = 0;
+			
+			/**
+			 * State of the heartbeat ("stopped", "started", "delayed")
+			 * @type {String}
+			 * @private
+			 */
+			this.state = 'stopped';
+			
+			/**
+			 * Callback queue
+			 * @type {Callbacks}
+			 * @private
+			 */
+			this.callbacks = new CallbackJS.Callbacks();
+		}
+	};
+});

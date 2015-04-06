@@ -1,0 +1,59 @@
+<!DOCTYPE project> 
+
+<project name="Heartbeat JS Build" default="full-build">
+
+	<!-- directories -->
+    <property name="src.dir">${basedir}/../src</property>
+    <property name="dist.dir">${basedir}/../dist</property>
+    <property name="dist.src.dir">${dist.dir}/../src</property>
+    <property name="build.dir">${basedir}</property>
+    <property name="build.libs.dir">${build.dir}/libs</property>
+    <property name="build.settings.dir">${build.dir}/settings</property>
+    <property name="docs.dir">${basedir}/../docs</property>
+    <property name="jsdoc.home">${build.libs.dir}/jsdoc</property>
+
+	<!-- compilers/builders -->
+	<property name="r.js" value="${build.libs.dir}/rjs/r.js" />
+	<property name="closure.jar" value="${build.libs.dir}/closure/compiler.jar" />
+	<property name="rhino.jar" value="${build.libs.dir}/rhino/js.jar" />
+	
+	<!-- build settings -->
+	<property name="require.build" value="${build.settings.dir}/app.build.js" />
+    
+	<target name="full-build" description="clean, document, and optimize">
+	    <antcall target="clean" />
+	    <antcall target="document" />
+	    <antcall target="build" />
+	</target>
+	
+	<target name="clean" description="clean dist directory">
+		<delete includeemptydirs="true">
+			<fileset dir="${dist.dir}" includes="**/*" />
+		</delete>
+	</target>
+    
+    <target name="document" description="document heartbeat.js">
+        <exec executable="${jsdoc.home}/jsdoc">
+    		<arg value="${src.dir}/com/github/ariker/heartbeatjs" />
+    		<arg value="-r" />
+    		<arg value="-d" />
+    		<arg value="${docs.dir}" />
+  		</exec>
+    </target>
+    
+    <!-- found at https://gist.github.com/millermedeiros/825117 -->
+     <target name="build" description="Combine and minify files.">
+       <copy file="${src.dir}/com/github/ariker/heartbeatjs/heartbeat.js" tofile="${dist.dir}/heartbeat.js"/>
+         
+        <java classname="org.mozilla.javascript.tools.shell.Main">
+            <classpath>
+                <pathelement location="${rhino.jar}" />
+                <pathelement location="${closure.jar}" />
+            </classpath>
+            <arg value="${r.js}"/>
+            <arg value="-o"/>
+            <arg value="${require.build}"/>
+        </java>
+    </target>
+
+</project>

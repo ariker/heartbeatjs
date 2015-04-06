@@ -1,0 +1,4 @@
+/**
+ * @namespace github
+ * @memberof com
+ */
