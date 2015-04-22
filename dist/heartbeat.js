@@ -155,7 +155,7 @@ define(['jquery'], function($) {
 			 * @type {Callbacks}
 			 * @private
 			 */
-			this.callbacks = new this.namespace.CallbackJS.Callbacks();
+			this.callbacks = new this.namespace.Callbacks();
 		},
 			
 			
