@@ -15,8 +15,15 @@ Module Layout
 -------------
 Text
 
-Usage Exampless
----------------
+Usage Examples
+--------------
 Text
 
-### requiresjs ###
+### RequiresJS ###
+Text
+
+### Class Scope Change Handlers ###
+Text
+
+### Global Scope Change Handlers ###
+Text
