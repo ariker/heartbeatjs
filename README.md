@@ -4,17 +4,22 @@ heartbeatjs
 JS module that performs actions at a set interval through callbacks.
 
 1. [Introduction](#introduction)
-2. [Module Layout](#modulelayout)
-3. [Usage Examples](#usageexamples)
+2. [License](#license)
+3. [Module Layout](#modulelayout)
+4. [Usage Examples](#usageexamples)
  
 Introduction
 ------------
 heartbeatjs is an AMD module containing classes where a timer triggers actions.
 
+License
+-------
+[The MIT License](http://opensource.org/licenses/MIT)
+
 Module Layout
 -------------
-| Class Name     | Description   |
-| -------------- | ------------- |
+| Class Name     | Description                                                       |
+| -------------- | ----------------------------------------------------------------- |
 | CallbackObject | Object passed to the callback function that specifies the changes |
 | Callbacks      | Data structure for registering and executing callback functions   |
 | Heartbeat      | Execute callback functions at a specified interval                |
@@ -25,6 +30,17 @@ Text
 
 ### RequiresJS ###
 Text
+
+#### Require Config ###
+Text
+
+#### Module Declaration ###
+Text
+
+### Creating the Heartbeat ###
+```javascript
+var heartbeat = new HeartbeatJS.Heartbeat();
+```
 
 ### Class Scope Change Handlers ###
 Text
