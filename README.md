@@ -13,7 +13,11 @@ heartbeatjs is an AMD module containing classes where a timer triggers actions.
 
 Module Layout
 -------------
-Text
+| Class Name     | Description   |
+| -------------- | ------------- |
+| CallbackObject | Object passed to the callback function that specifies the changes |
+| Callbacks      | Data structure for registering and executing callback functions   |
+| Heartbeat      | Execute callback functions at a specified interval                |
 
 Usage Examples
 --------------
@@ -26,4 +30,7 @@ Text
 Text
 
 ### Global Scope Change Handlers ###
+Text
+
+### Callback Chains ###
 Text
