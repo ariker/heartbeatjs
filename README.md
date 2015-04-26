@@ -32,5 +32,11 @@ Text
 ### Global Scope Change Handlers ###
 Text
 
+### Registering Change Handlers ###
+Text
+
+### Starting, Stopping, and Delaying the Heartbeat ###
+Text
+
 ### Callback Chains ###
 Text
