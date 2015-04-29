@@ -63,8 +63,13 @@ Text
 ### Registering Change Handlers ###
 Text
 
-### Starting, Stopping, and Delaying the Heartbeat ###
-Text
+### Starting, Stopping, and Skipping the Heartbeat ###
+```javascript
+heartbeat.start(100); //start with a 100ms pulse
+heartbeat.stop(); //stop
+heartbeat.skip(50); //skip 50 beats (ie. 5000ms)
+heartbeat.skip(10, true); //skip an additional 10 beats (instead of 10 total)
+```
 
 ### Callback Chains ###
 Text
