@@ -32,10 +32,22 @@ Text
 Text
 
 #### Require Config ###
-Text
+```javascript
+requirejs.config({
+    baseUrl: 'components',
+    paths: {
+        'jquery': 'path to jquery', //if not using heartbeat.min.js
+        'heartbeatjs': 'path to heartbeatjs'
+    }
+});
+```
 
-#### Module Declaration ###
-Text
+#### Module Definition ###
+```javascript
+define(['heartbeatjs'], function(HeartbeatJS) {
+    //module definition
+});
+```
 
 ### Creating the Heartbeat ###
 ```javascript
