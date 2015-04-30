@@ -55,33 +55,32 @@ var heartbeat = new HeartbeatJS.Heartbeat();
 ```
 
 ### Class Scope Change Handlers ###
+To register a class function as a change handler, wrap it in an anonymous function to preserve the scope.
 ```javascript
-function HandlerExample() {
+function Example() {
 
-    this.handler = function(callbackObject) {
-        //handler implemention
-    }
+    this.executeExample = function() {
+        //implemention
+    };
 
     this.heartbeat = new HeartbeatJS.Heartbeat();
     this.heartbeat.getCallbacks().register(
-        function(callbackObject) {
-            this.handler(callbackObject);
+        function() {
+            this.executeExample();
         }
     );
 }
 ```
 
 ### Global Scope Change Handlers ###
+To register a function in the global scope, you can omit the anonymous function wrapper.
 ```javascript
-function handler(callbackObject) {
-    //handler implemention
+function executeExample() {
+    //implemention
 }
 
-heartbeat.getCallbacks().register(handler);
+heartbeat.getCallbacks().register(executeExammple);
 ```
-
-### Registering Change Handlers ###
-Text
 
 ### Starting, Stopping, and Skipping the Heartbeat ###
 ```javascript
@@ -91,7 +90,56 @@ heartbeat.skip(50); //skip 50 beats (ie. 5000ms)
 heartbeat.skip(10, true); //skip an additional 10 beats (instead of 10 total)
 ```
 
+### Handling Changes ###
+You can use the Callbacks class to handle changes to granularity of an object attribute.
+```javascript
+function Example() {
+
+    this.handleChange = function(callbackObject) {
+        //implemention
+    };
+
+    this.callbacks = new HeartbeatJS.Callbacks();
+    this.callbacks.register(
+        function(callbackObject) {
+            this.handleChange(callbackObject);
+        }
+    );
+    this.callbacks.execute(new Object(), ['changed attribute']);
+}
+```
+
 ### Callback Chains ###
-Text
+A single change can propagate through multiple change handlers, updating multiple objects.
+```javascript
+function Example() {
+    this.handleChange2 = function(callbackObject) {
+        //execute on second call
+        if(callbackObject.attributeChanged(1)) {
+            //implementation
+        }
+    };
+
+    this.handleChange1 = function(callbackObject) {
+        //execute on first call
+        if(callbackObject.attributeChanged(0)) {
+            this.callbacks.execute(this, [1], callbackObject);
+        }
+    };
+
+    this.callbacks = new HeartbeatJS.Callbacks();
+    this.callbacks.register(
+        function(callbackObject) {
+            this.handleChange1(callbackObject);
+        }
+    );
+    this.callbacks.register(
+        function(callbackObject) {
+            this.handleChange2(callbackObject);
+        }
+    );
+    this.callbacks.execute(new Object(), [0]);
+}
+```
 
 For detailed class documentation, see the [JSDoc page](http://ariker.github.io/heartbeatjs/docs)
