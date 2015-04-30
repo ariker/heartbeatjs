@@ -28,7 +28,7 @@ Usage Examples
 --------------
 Text
 
-### RequiresJS ###
+### RequireJS ###
 Text
 
 #### Require Config ###
