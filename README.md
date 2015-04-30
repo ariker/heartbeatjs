@@ -58,7 +58,13 @@ var heartbeat = new HeartbeatJS.Heartbeat();
 Text
 
 ### Global Scope Change Handlers ###
-Text
+```javascript
+function handler(callbackObject) {
+ //handler implemention
+}
+
+heartbeat.getCallbacks().register(handler);
+```
 
 ### Registering Change Handlers ###
 Text
