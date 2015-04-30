@@ -73,3 +73,5 @@ heartbeat.skip(10, true); //skip an additional 10 beats (instead of 10 total)
 
 ### Callback Chains ###
 Text
+
+For detailed class documentation, see the [JSDoc page](http://ariker.github.io/heartbeatjs/docs)
