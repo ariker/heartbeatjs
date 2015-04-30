@@ -55,12 +55,26 @@ var heartbeat = new HeartbeatJS.Heartbeat();
 ```
 
 ### Class Scope Change Handlers ###
-Text
+```javascript
+function HandlerExample() {
+
+    this.handler = function(callbackObject) {
+        //handler implemention
+    }
+
+    this.heartbeat = new HeartbeatJS.Heartbeat();
+    this.heartbeat.getCallbacks().register(
+        function(callbackObject) {
+            this.handler(callbackObject);
+        }
+    );
+}
+```
 
 ### Global Scope Change Handlers ###
 ```javascript
 function handler(callbackObject) {
- //handler implemention
+    //handler implemention
 }
 
 heartbeat.getCallbacks().register(handler);
