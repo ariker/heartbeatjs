@@ -26,12 +26,11 @@ Module Layout
 
 Usage Examples
 --------------
-Text
-
 ### RequireJS ###
-Text
+Declare HeartbeatJS as a requirement for other AMD modules.
 
 #### Require Config ###
+jQuery is required dependency of heartbeat.js, but not heartbeat.min.js.
 ```javascript
 requirejs.config({
     baseUrl: 'components',
