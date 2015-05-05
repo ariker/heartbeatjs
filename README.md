@@ -1,16 +1,11 @@
 heartbeatjs
 ===========
 
-JS module that performs actions at a set interval through callbacks.
+HeartbeatJS is a module for executing and handling callbacks with an optional timer. The module can be loaded into the global namespace or as an AMD module.
 
-1. [Introduction](#introduction)
-2. [License](#license)
-3. [Module Layout](#modulelayout)
-4. [Usage Examples](#usageexamples)
- 
-Introduction
-------------
-heartbeatjs is an AMD module containing classes where a timer triggers actions.
+1. [License](#license)
+2. [Module Layout](#modulelayout)
+3. [Usage Examples](#usageexamples)
 
 License
 -------
@@ -26,6 +21,8 @@ Module Layout
 
 Usage Examples
 --------------
+If an implementation of AMD is available (ex. RequireJS), the module will return the AMD representation. Otherwise the module will be created in the global namespace as HeartbeatJS.
+
 ### RequireJS ###
 Declare HeartbeatJS as a requirement for other AMD modules.
 
